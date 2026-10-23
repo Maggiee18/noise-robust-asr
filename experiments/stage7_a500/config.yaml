@@ -1,0 +1,66 @@
+seed: 1234
+paths:
+  raw_dir: data/raw
+  manifests_dir: data/manifests
+  results_dir: results
+data:
+  train_subset: train-clean-100
+  dev_subset: dev-clean
+  test_subset: test-clean
+  sample_rate: 16000
+features:
+  n_fft: 512
+  win_length: 400
+  hop_length: 160
+  n_mels: 80
+noise:
+  manifest: musan.csv
+  categories:
+  - noise
+  train_noise: false
+  p_noise: 0.8
+  snr_min_db: 0.0
+  snr_max_db: 20.0
+  eval_snrs_db:
+  - 20
+  - 10
+  - 5
+  - 0
+  recipe_seed: 2026
+model:
+  cnn_channels:
+  - 32
+  - 32
+  cnn_kernel: 3
+  cnn_strides:
+  - - 2
+    - 2
+  - - 2
+    - 1
+  lstm_hidden: 384
+  lstm_layers: 3
+  dropout: 0.2
+experiment:
+  name: model_a_clean
+training:
+  epochs: 40
+  lr: 0.001
+  weight_decay: 0.01
+  warmup_fraction: 0.05
+  min_lr_ratio: 0.05
+  clip_norm: 5.0
+  amp: true
+  log_every_steps: 100
+evaluation:
+  dev_limit: 200
+  conditions:
+  - clean
+  - 20
+  - 10
+  - 5
+  - 0
+  selection: mean_wer
+loader:
+  max_batch_seconds: 200
+  num_workers: 2
+  pin_memory: true

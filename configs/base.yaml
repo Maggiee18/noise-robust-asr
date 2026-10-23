@@ -1,0 +1,78 @@
+# Base configuration shared by all experiments.
+# Experiment files (configs/model_a.yaml, model_b.yaml, model_c.yaml) only
+# override the few settings that differ.
+
+seed: 1234
+
+paths:
+  raw_dir: data/raw
+  manifests_dir: data/manifests
+  results_dir: results
+
+data:
+  train_subset: train-clean-100
+  dev_subset: dev-clean          # validation / model selection
+  test_subset: test-clean        # final evaluation only
+  sample_rate: 16000
+
+features:                        # see src/features.py for the rationale
+  n_fft: 512
+  win_length: 400
+  hop_length: 160
+  n_mels: 80
+
+noise:
+  manifest: musan.csv
+  categories: [noise]
+  # training augmentation (Models B and C turn this on)
+  train_noise: false
+  p_noise: 0.8                   # fraction of training utterances that get noise
+  snr_min_db: 0.0                # training SNR ~ Uniform[snr_min_db, snr_max_db]
+  snr_max_db: 20.0
+  # fixed evaluation conditions (identical for every model)
+  eval_snrs_db: [20, 10, 5, 0]
+  recipe_seed: 2026
+
+model:                           # see src/model.py for the rationale
+  cnn_channels: [32, 32]
+  cnn_kernel: 3
+  cnn_strides: [[2, 2], [2, 1]]  # [frequency, time]; time downsampling 2x in total
+  lstm_hidden: 384               # per direction. Benchmarked on the RTX 3050: 256/320/384
+                                 # all ~0.3 s per typical step (LSTM time is set by
+                                 # sequence length), 384 uses 0.72 GB -> largest chosen
+  lstm_layers: 3
+  dropout: 0.2
+
+specaugment:                     # see src/specaugment.py; only Model C turns it on
+  enabled: false
+  freq_masks: 2                  # number of frequency masks
+  freq_width: 27                 # max width in Mel bins (Park et al. LD policy, 80 bins)
+  time_masks: 2                  # number of time masks
+  time_width: 40                 # max width in frames (0.4 s) ...
+  time_ratio: 0.1                # ... and at most 10% of the utterance per mask
+
+experiment:
+  name: base                     # overridden by each experiment file
+
+training:                        # identical for Models A, B and C
+  epochs: 20                     # fixed budget; best epoch chosen on dev (below).
+                                 # Stage 8 (17.5 h, 15 epochs) was within 0.4% CER of
+                                 # its best by epoch 10; 20 full epochs = ~40k updates
+  lr: 0.001                      # AdamW peak learning rate (verified in Phase 12)
+  weight_decay: 0.01
+  warmup_fraction: 0.05          # linear warm up over the first 5% of steps ...
+  min_lr_ratio: 0.05             # ... then cosine decay to 5% of the peak
+  clip_norm: 5.0
+  amp: true
+  log_every_steps: 100
+
+evaluation:
+  dev_limit: null                # null = all 2703 dev utterances
+  conditions: [clean, 20, 10, 5, 0]
+  selection: mean_wer            # best epoch = lowest dev WER averaged over all
+                                 # conditions; the SAME rule for every model
+
+loader:
+  max_batch_seconds: 200         # padded audio per batch; controls GPU memory
+  num_workers: 4                 # stage 8: GPU sat idle while the CPU side was slowed
+  pin_memory: true

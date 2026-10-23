@@ -1,0 +1,14 @@
+{
+  "command": "src/train.py --config configs/model_b.yaml",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu126",
+  "cuda": "12.6",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "parameters": 10273981,
+  "train_utterances": 28539,
+  "train_hours": 100.59,
+  "dev_utterances": 2703,
+  "steps_per_epoch": 2018,
+  "total_steps": 40360
+}

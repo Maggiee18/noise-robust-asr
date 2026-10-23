@@ -1,0 +1,80 @@
+{
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "timestamp_utc": "2026-10-22T09:11:48+00:00",
+  "torch": "2.11.0+cu126",
+  "torchaudio": "2.11.0+cu126",
+  "torch_cuda_build": "12.6",
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "gpu_vram_gb": 6.0,
+  "gpu_compute_capability": "8.6",
+  "cudnn": 91002,
+  "bf16_supported": true,
+  "packages": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "soundfile": "0.14.0",
+    "jiwer": "4.0.0",
+    "matplotlib": "3.11.2",
+    "yaml": "6.0.3",
+    "tqdm": "4.70.1"
+  },
+  "checks": [
+    {
+      "name": "Python version is 3.10 to 3.13",
+      "status": "PASS",
+      "detail": "3.12.10"
+    },
+    {
+      "name": "torch and torchaudio release match",
+      "status": "PASS",
+      "detail": "torch 2.11 vs torchaudio 2.11"
+    },
+    {
+      "name": "CUDA GPU available",
+      "status": "PASS",
+      "detail": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+    },
+    {
+      "name": "soundfile reads FLAC/WAV",
+      "status": "PASS",
+      "detail": "FLAC and WAV round trip OK, libsndfile 1.2.2"
+    },
+    {
+      "name": "80 band log Mel spectrogram",
+      "status": "PASS",
+      "detail": "[B, Mel, T] = (2, 80, 101)"
+    },
+    {
+      "name": "SpecAugment masks (torchaudio)",
+      "status": "PASS",
+      "detail": "masked fraction 0.05"
+    },
+    {
+      "name": "Resampling",
+      "status": "PASS",
+      "detail": "44100 Hz -> 16000 Hz, 16000 samples"
+    },
+    {
+      "name": "CTC loss forward/backward",
+      "status": "PASS",
+      "detail": "loss 20.846, convention [T, B, C], blank=0"
+    },
+    {
+      "name": "3 layer BiLSTM + AMP training step",
+      "status": "PASS",
+      "detail": "output (4, 300, 30), AMP=on, peak GPU memory 133 MB"
+    },
+    {
+      "name": "jiwer WER/CER",
+      "status": "PASS",
+      "detail": "WER=0.25 (expected 0.25), CER=0.20 (expected 0.20)"
+    },
+    {
+      "name": "Seed reproducibility",
+      "status": "PASS",
+      "detail": "same seed gives identical tensors"
+    }
+  ]
+}

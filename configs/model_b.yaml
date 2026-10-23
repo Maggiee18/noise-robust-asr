@@ -1,0 +1,12 @@
+# Model B: noise augmented training. Identical to Model A except that training
+# utterances are mixed with TRAIN pool MUSAN noise:
+#   80% of utterances (noise.p_noise) get noise at an SNR drawn uniformly from
+#   0 to 20 dB (noise.snr_min_db / snr_max_db, set in base.yaml); 20% stay clean.
+# Dev and test conditions, epochs, optimizer and selection rule are unchanged.
+base: base.yaml
+
+experiment:
+  name: model_b_noise
+
+noise:
+  train_noise: true

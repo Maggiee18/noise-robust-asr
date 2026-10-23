@@ -1,0 +1,8 @@
+# Model A: clean baseline. Trained on clean LibriSpeech only.
+base: base.yaml
+
+experiment:
+  name: model_a_clean
+
+noise:
+  train_noise: false

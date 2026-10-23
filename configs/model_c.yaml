@@ -1,0 +1,16 @@
+# Model C: noise augmented training + SpecAugment. Identical to Model B
+# (TRAIN pool MUSAN noise on 80% of utterances at 0 to 20 dB) plus frequency and
+# time masking of the training features (specaugment section in base.yaml:
+# 2 frequency masks up to 27 Mel bins, 2 time masks up to 40 frames / 10% of the
+# utterance). The B -> C comparison isolates SpecAugment.
+# Dev and test conditions, epochs, optimizer and selection rule are unchanged.
+base: base.yaml
+
+experiment:
+  name: model_c_specaug
+
+noise:
+  train_noise: true
+
+specaugment:
+  enabled: true

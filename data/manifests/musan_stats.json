@@ -1,0 +1,56 @@
+{
+  "music": {
+    "test": {
+      "files": 132,
+      "hours": 8.076
+    },
+    "dev": {
+      "files": 66,
+      "hours": 3.68
+    },
+    "train": {
+      "files": 462,
+      "hours": 30.858
+    },
+    "excluded": {
+      "files": 0,
+      "hours": 0.0
+    }
+  },
+  "noise": {
+    "test": {
+      "files": 176,
+      "hours": 1.135
+    },
+    "train": {
+      "files": 615,
+      "hours": 4.63
+    },
+    "dev": {
+      "files": 88,
+      "hours": 0.454
+    },
+    "excluded": {
+      "files": 51,
+      "hours": 0.008
+    }
+  },
+  "speech": {
+    "train": {
+      "files": 298,
+      "hours": 42.378
+    },
+    "dev": {
+      "files": 42,
+      "hours": 5.99
+    },
+    "test": {
+      "files": 86,
+      "hours": 12.081
+    },
+    "excluded": {
+      "files": 0,
+      "hours": 0.0
+    }
+  }
+}

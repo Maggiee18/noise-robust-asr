@@ -1,0 +1,25 @@
+# Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Data (downloaded and generated; reproduced by scripts/download_data.py)
+data/download/
+data/raw/
+data/processed/
+
+# Large outputs
+results/checkpoints/
+# Model checkpoints (123 MB each, over GitHub's 100 MB file limit).
+# Logs, configs and dev predictions in experiments/ ARE kept.
+*.pt
+*.tmp
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# Keep small, citable records
+!data/manifests/

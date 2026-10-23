@@ -1,0 +1,23 @@
+# Core project dependencies (Phase 1).
+#
+# torch and torchaudio are NOT listed here on purpose: they must be installed
+# from the PyTorch wheel index that matches your GPU driver. See the setup
+# commands. Tested pair: torch==2.11.0 with torchaudio==2.11.0.
+#
+# Lower bounds only, so this file also installs cleanly on Kaggle/Colab
+# without fighting their preinstalled packages. After setting up your local
+# environment, freeze the exact versions with:
+#     pip freeze > requirements-lock.txt
+# and cite that lock file in the paper.
+
+numpy>=1.26
+pandas>=2.1
+soundfile>=0.12.1      # reads LibriSpeech FLAC and MUSAN WAV, no FFmpeg needed
+jiwer>=3.0             # WER and CER
+matplotlib>=3.8
+PyYAML>=6.0            # configs/config.yaml
+tqdm>=4.66
+
+# Installed later (Phase 19), kept out now so the research pipeline
+# does not depend on the demo stack:
+# gradio

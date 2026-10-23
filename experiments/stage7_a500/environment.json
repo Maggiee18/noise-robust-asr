@@ -1,0 +1,14 @@
+{
+  "command": "src\\train.py --config configs\\model_a.yaml --limit 500 --epochs 40 --dev-limit 200 --name stage7_a500",
+  "python": "3.12.10",
+  "torch": "2.11.0+cu126",
+  "cuda": "12.6",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "parameters": 10273981,
+  "train_utterances": 500,
+  "train_hours": 1.77,
+  "dev_utterances": 200,
+  "steps_per_epoch": 36,
+  "total_steps": 1440
+}

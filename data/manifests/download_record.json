@@ -1,0 +1,46 @@
+{
+  "dev-clean": {
+    "url": "https://openslr.elda.org/resources/12/dev-clean.tar.gz",
+    "md5": "42e2234ba48799c1f50f24a7926300a1",
+    "archive_bytes": 337926286,
+    "counts": {
+      "flac": 2703,
+      "transcripts": 2703,
+      "speakers": 40
+    },
+    "verified_utc": "2026-10-22T09:21:13+00:00"
+  },
+  "test-clean": {
+    "url": "https://openslr.elda.org/resources/12/test-clean.tar.gz",
+    "md5": "32fa31d27d2e1cad72775fee3f4849a9",
+    "archive_bytes": 346663984,
+    "counts": {
+      "flac": 2620,
+      "transcripts": 2620,
+      "speakers": 40
+    },
+    "verified_utc": "2026-10-22T09:23:51+00:00"
+  },
+  "train-clean-100": {
+    "url": "https://openslr.elda.org/resources/12/train-clean-100.tar.gz",
+    "md5": "2a93770f6d5c6c964bc36631d331a522",
+    "archive_bytes": 6387309499,
+    "counts": {
+      "flac": 28539,
+      "transcripts": 28539,
+      "speakers": 251
+    },
+    "verified_utc": "2026-10-22T10:08:48+00:00"
+  },
+  "musan": {
+    "url": "https://openslr.elda.org/resources/17/musan.tar.gz",
+    "md5": "0c472d4fc0c5141eca47ad1ffeb2a7df",
+    "archive_bytes": 11086114085,
+    "counts": {
+      "noise": 930,
+      "music": 660,
+      "speech": 426
+    },
+    "verified_utc": "2026-10-22T11:43:49+00:00"
+  }
+}
