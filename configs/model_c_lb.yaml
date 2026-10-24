@@ -1,0 +1,14 @@
+# Model C, milder SpecAugment ("LB" style: ONE frequency mask and ONE time mask).
+# Added after the stage 8 pilot: the default policy (configs/model_c.yaml, two
+# masks of each kind, ~33% of the spectrogram hidden) slowed learning so much
+# that the 5000 utterance pilot ended at 59.0% mean dev WER vs 50.6% for Model B
+# (higher dev loss AND higher train loss: underfitting, not overfitting).
+# Same as model_c.yaml except freq_masks 1 and time_masks 1 (~18% hidden).
+base: model_c.yaml
+
+experiment:
+  name: model_c_lb
+
+specaugment:
+  freq_masks: 1
+  time_masks: 1

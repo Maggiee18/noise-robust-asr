@@ -1,0 +1,74 @@
+{
+  "split": "test",
+  "limit": null,
+  "conditions": [
+    "clean",
+    "20",
+    "10",
+    "5",
+    "0",
+    "-5",
+    "15"
+  ],
+  "standard": [
+    "clean",
+    "20",
+    "10",
+    "5",
+    "0"
+  ],
+  "command": "scripts/evaluate.py --split test --models model_a_clean model_b_noise model_c_lb --extra-snrs -5 15",
+  "time": "2026-10-24 19:27",
+  "minutes": 6.8,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "amp": true,
+  "python": "3.12.10",
+  "torch": "2.11.0+cu126",
+  "jiwer": "4.0.0",
+  "data": {
+    "manifest": {
+      "path": "data\\manifests\\test-clean.csv",
+      "md5": "ba8c9ec8b123d5485e323a4a4fd8fbbb"
+    },
+    "recipe": {
+      "path": "data\\manifests\\recipes\\test-clean_noise.csv",
+      "md5": "c1784623cc90de50768080f6e0c44815"
+    }
+  },
+  "models": {
+    "model_a_clean": {
+      "checkpoint": "experiments\\model_a_clean\\best.pt",
+      "epoch": 20,
+      "selection": {
+        "epoch": 20,
+        "mean_wer": 0.451
+      },
+      "md5": "3640bc0902cae0da839d6297cfd6db59",
+      "train_noise": false,
+      "specaugment": false
+    },
+    "model_b_noise": {
+      "checkpoint": "experiments\\model_b_noise\\best.pt",
+      "epoch": 20,
+      "selection": {
+        "epoch": 20,
+        "mean_wer": 0.2627
+      },
+      "md5": "b499492ca9ac029e1c31f93ea358681d",
+      "train_noise": true,
+      "specaugment": false
+    },
+    "model_c_lb": {
+      "checkpoint": "experiments\\model_c_lb\\best.pt",
+      "epoch": 20,
+      "selection": {
+        "epoch": 20,
+        "mean_wer": 0.2645
+      },
+      "md5": "4993152d8f36ec5e439795f19ae58212",
+      "train_noise": true,
+      "specaugment": true
+    }
+  }
+}
