@@ -1,0 +1,137 @@
+{
+  "split": "test",
+  "decoder": "torchaudio ctc_decoder (flashlight) + src.ngram_lm",
+  "lm": {
+    "lm": "3-gram.pruned.1e-7",
+    "source": "https://www.openslr.org/11",
+    "archive": "3-gram.pruned.1e-7.arpa.gz",
+    "archive_mb": 34.1,
+    "md5": "9a0f1325bcaf3a0f7b7be4be10823c2a",
+    "md5_verified": false,
+    "ngram_counts": {
+      "1": 200003,
+      "2": 2451827,
+      "3": 1134656
+    },
+    "lexicon_words": 200000,
+    "oov": {
+      "dev-clean": {
+        "words": 54402,
+        "oov_words": 190,
+        "oov_rate_pct": 0.35,
+        "examples": [
+          "ABALONE'S",
+          "AMBROSCH",
+          "BALVASTRO",
+          "BAMBEDAY",
+          "BEENIE",
+          "BENNYDECK",
+          "BENNYDECK'S",
+          "BERGEZ",
+          "BHUNDA",
+          "BIRDIKINS",
+          "BOOLOOROO",
+          "BOZZLE",
+          "BOZZLE'S",
+          "BRANDD",
+          "BRAU"
+        ]
+      },
+      "test-clean": {
+        "words": 52576,
+        "oov_words": 220,
+        "oov_rate_pct": 0.42,
+        "examples": [
+          "ADONA",
+          "ANDELLA",
+          "ANGOR",
+          "ANSWERD",
+          "ARONNAX",
+          "ATHOLEMEN",
+          "BADAUDERIE",
+          "BATTLEAX",
+          "BEEDER",
+          "BEHAVIOURIST",
+          "BILLYGOAT",
+          "BOOLOOROO",
+          "BRACTON'S",
+          "BRITANNULA",
+          "BRITANNULISTS"
+        ]
+      }
+    }
+  },
+  "conditions": [
+    "clean",
+    "20",
+    "10",
+    "5",
+    "0",
+    "-5",
+    "15"
+  ],
+  "standard": [
+    "clean",
+    "20",
+    "10",
+    "5",
+    "0"
+  ],
+  "beam": 50,
+  "command": "scripts/decode_lm.py --split test --models model_a_clean model_b_noise model_c_lb --extra-snrs -5 15",
+  "time": "2026-10-25 01:52",
+  "minutes": 22.2,
+  "torch": "2.11.0+cu126",
+  "flashlight_text": "0.0.7",
+  "data": {
+    "manifest": {
+      "path": "data\\manifests\\test-clean.csv",
+      "md5": "ba8c9ec8b123d5485e323a4a4fd8fbbb"
+    },
+    "recipe": {
+      "path": "data\\manifests\\recipes\\test-clean_noise.csv",
+      "md5": "c1784623cc90de50768080f6e0c44815"
+    }
+  },
+  "models": {
+    "model_a_clean": {
+      "checkpoint": "experiments\\model_a_clean\\best.pt",
+      "epoch": 20,
+      "md5": "3640bc0902cae0da839d6297cfd6db59",
+      "lm_weight": 4.0,
+      "word_score": 0.0,
+      "beam": 50,
+      "lm": "3-gram.pruned.1e-7",
+      "tuned_on": "dev subset of 300",
+      "dev_subset_mean_wer_lm": 35.16,
+      "dev_subset_mean_wer_lexicon_only": 43.54,
+      "dev_subset_mean_wer_greedy": 45.96
+    },
+    "model_b_noise": {
+      "checkpoint": "experiments\\model_b_noise\\best.pt",
+      "epoch": 20,
+      "md5": "b499492ca9ac029e1c31f93ea358681d",
+      "lm_weight": 2.0,
+      "word_score": 0.0,
+      "beam": 50,
+      "lm": "3-gram.pruned.1e-7",
+      "tuned_on": "dev subset of 300",
+      "dev_subset_mean_wer_lm": 16.73,
+      "dev_subset_mean_wer_lexicon_only": 23.81,
+      "dev_subset_mean_wer_greedy": 26.69
+    },
+    "model_c_lb": {
+      "checkpoint": "experiments\\model_c_lb\\best.pt",
+      "epoch": 20,
+      "md5": "4993152d8f36ec5e439795f19ae58212",
+      "lm_weight": 2.0,
+      "word_score": 0.0,
+      "beam": 50,
+      "lm": "3-gram.pruned.1e-7",
+      "tuned_on": "dev subset of 300",
+      "dev_subset_mean_wer_lm": 16.61,
+      "dev_subset_mean_wer_lexicon_only": 24.08,
+      "dev_subset_mean_wer_greedy": 26.91
+    }
+  }
+}

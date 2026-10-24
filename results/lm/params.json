@@ -1,0 +1,32 @@
+{
+  "model_a_clean": {
+    "lm_weight": 4.0,
+    "word_score": 0.0,
+    "beam": 50,
+    "lm": "3-gram.pruned.1e-7",
+    "tuned_on": "dev subset of 300",
+    "dev_subset_mean_wer_lm": 35.16,
+    "dev_subset_mean_wer_lexicon_only": 43.54,
+    "dev_subset_mean_wer_greedy": 45.96
+  },
+  "model_b_noise": {
+    "lm_weight": 2.0,
+    "word_score": 0.0,
+    "beam": 50,
+    "lm": "3-gram.pruned.1e-7",
+    "tuned_on": "dev subset of 300",
+    "dev_subset_mean_wer_lm": 16.73,
+    "dev_subset_mean_wer_lexicon_only": 23.81,
+    "dev_subset_mean_wer_greedy": 26.69
+  },
+  "model_c_lb": {
+    "lm_weight": 2.0,
+    "word_score": 0.0,
+    "beam": 50,
+    "lm": "3-gram.pruned.1e-7",
+    "tuned_on": "dev subset of 300",
+    "dev_subset_mean_wer_lm": 16.61,
+    "dev_subset_mean_wer_lexicon_only": 24.08,
+    "dev_subset_mean_wer_greedy": 26.91
+  }
+}

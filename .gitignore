@@ -10,6 +10,8 @@ data/processed/
 
 # Large outputs
 results/checkpoints/
+# Language model files (hundreds of MB; rebuilt by scripts/prepare_lm.py)
+data/lm/
 # Model checkpoints (123 MB each, over GitHub's 100 MB file limit).
 # Logs, configs and dev predictions in experiments/ ARE kept.
 *.pt
