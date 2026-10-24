@@ -18,6 +18,5 @@ matplotlib>=3.8
 PyYAML>=6.0            # configs/config.yaml
 tqdm>=4.66
 
-# Installed later (Phase 19), kept out now so the research pipeline
-# does not depend on the demo stack:
-# gradio
+# Demo only (Phase 19, demo/app.py); the research pipeline does not need it:
+gradio>=5.0            # tested with 6.30
