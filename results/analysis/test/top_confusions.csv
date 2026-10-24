@@ -1,0 +1,271 @@
+model,condition,kind,item,count
+A,clean,substitution,AND -> IN,64
+A,clean,substitution,IN -> AND,56
+A,clean,substitution,AND -> AN,51
+A,clean,substitution,THE -> A,31
+A,clean,substitution,IS -> AS,25
+A,clean,substitution,A -> THE,24
+A,clean,substitution,IN -> AN,22
+A,clean,substitution,OF -> A,21
+A,clean,substitution,AN -> AND,19
+A,clean,substitution,HIS -> IS,14
+A,clean,deletion,A,39
+A,clean,deletion,TO,30
+A,clean,deletion,AND,30
+A,clean,deletion,OF,27
+A,clean,deletion,IS,25
+A,clean,deletion,IT,22
+A,clean,deletion,THE,19
+A,clean,deletion,AT,15
+A,clean,deletion,IN,14
+A,clean,deletion,HE,13
+A,clean,insertion,A,58
+A,clean,insertion,IN,24
+A,clean,insertion,AND,21
+A,clean,insertion,TO,20
+A,clean,insertion,THE,19
+A,clean,insertion,OF,13
+A,clean,insertion,O,11
+A,clean,insertion,I,11
+A,clean,insertion,BE,11
+A,clean,insertion,HE,8
+B,clean,substitution,AND -> IN,66
+B,clean,substitution,AND -> AN,46
+B,clean,substitution,IN -> AND,45
+B,clean,substitution,THE -> A,27
+B,clean,substitution,IS -> AS,26
+B,clean,substitution,IN -> AN,23
+B,clean,substitution,IN -> IND,20
+B,clean,substitution,OF -> A,20
+B,clean,substitution,A -> THE,20
+B,clean,substitution,AN -> AND,16
+B,clean,deletion,A,44
+B,clean,deletion,IS,31
+B,clean,deletion,OF,26
+B,clean,deletion,TO,21
+B,clean,deletion,IT,21
+B,clean,deletion,AND,21
+B,clean,deletion,IN,20
+B,clean,deletion,AT,13
+B,clean,deletion,THE,10
+B,clean,deletion,ARE,8
+B,clean,insertion,A,50
+B,clean,insertion,IN,27
+B,clean,insertion,THE,21
+B,clean,insertion,AND,17
+B,clean,insertion,TO,15
+B,clean,insertion,I,12
+B,clean,insertion,AN,7
+B,clean,insertion,O,7
+B,clean,insertion,UP,7
+B,clean,insertion,NEVER,6
+C,clean,substitution,AND -> AN,58
+C,clean,substitution,AND -> IN,56
+C,clean,substitution,IN -> AND,49
+C,clean,substitution,IN -> AN,34
+C,clean,substitution,IS -> AS,29
+C,clean,substitution,THE -> A,25
+C,clean,substitution,IN -> IND,18
+C,clean,substitution,OF -> A,17
+C,clean,substitution,THE -> TE,16
+C,clean,substitution,A -> THE,16
+C,clean,deletion,IS,35
+C,clean,deletion,A,30
+C,clean,deletion,AND,26
+C,clean,deletion,TO,21
+C,clean,deletion,IT,20
+C,clean,deletion,OF,19
+C,clean,deletion,IN,18
+C,clean,deletion,ARE,10
+C,clean,deletion,THE,10
+C,clean,deletion,YOU,9
+C,clean,insertion,A,54
+C,clean,insertion,IN,25
+C,clean,insertion,TO,18
+C,clean,insertion,THE,18
+C,clean,insertion,I,17
+C,clean,insertion,AND,15
+C,clean,insertion,BE,12
+C,clean,insertion,AN,12
+C,clean,insertion,O,7
+C,clean,insertion,THERE,7
+A,0,substitution,THE -> A,98
+A,0,substitution,OF -> A,53
+A,0,substitution,AND -> AN,49
+A,0,substitution,AND -> IN,47
+A,0,substitution,IN -> AND,45
+A,0,substitution,IN -> AN,38
+A,0,substitution,A -> THE,27
+A,0,substitution,OF -> O,27
+A,0,substitution,THE -> HE,23
+A,0,substitution,AND -> A,22
+A,0,deletion,THE,444
+A,0,deletion,OF,235
+A,0,deletion,AND,213
+A,0,deletion,TO,192
+A,0,deletion,A,156
+A,0,deletion,IN,120
+A,0,deletion,IT,96
+A,0,deletion,IS,77
+A,0,deletion,FOR,74
+A,0,deletion,WAS,73
+A,0,insertion,A,92
+A,0,insertion,AND,38
+A,0,insertion,AN,34
+A,0,insertion,THE,33
+A,0,insertion,IN,28
+A,0,insertion,O,24
+A,0,insertion,AT,22
+A,0,insertion,TO,20
+A,0,insertion,IT,18
+A,0,insertion,I,16
+B,0,substitution,AND -> IN,69
+B,0,substitution,AND -> AN,64
+B,0,substitution,IN -> AND,56
+B,0,substitution,THE -> A,46
+B,0,substitution,THE -> TE,43
+B,0,substitution,IN -> AN,38
+B,0,substitution,IS -> AS,34
+B,0,substitution,THE -> E,31
+B,0,substitution,A -> THE,30
+B,0,substitution,OF -> A,23
+B,0,deletion,THE,86
+B,0,deletion,OF,75
+B,0,deletion,A,72
+B,0,deletion,TO,66
+B,0,deletion,AND,63
+B,0,deletion,IT,44
+B,0,deletion,IN,37
+B,0,deletion,YOU,29
+B,0,deletion,IS,26
+B,0,deletion,AT,22
+B,0,insertion,A,71
+B,0,insertion,THE,37
+B,0,insertion,IN,30
+B,0,insertion,I,25
+B,0,insertion,TO,21
+B,0,insertion,AND,20
+B,0,insertion,E,20
+B,0,insertion,O,20
+B,0,insertion,OF,17
+B,0,insertion,AN,15
+C,0,substitution,AND -> AN,85
+C,0,substitution,AND -> IN,64
+C,0,substitution,IN -> AND,62
+C,0,substitution,THE -> TE,52
+C,0,substitution,THE -> A,40
+C,0,substitution,IN -> AN,38
+C,0,substitution,A -> THE,34
+C,0,substitution,IS -> AS,33
+C,0,substitution,OF -> A,33
+C,0,substitution,AND -> A,19
+C,0,deletion,THE,73
+C,0,deletion,OF,71
+C,0,deletion,A,65
+C,0,deletion,AND,60
+C,0,deletion,IT,53
+C,0,deletion,TO,49
+C,0,deletion,IN,47
+C,0,deletion,IS,40
+C,0,deletion,HE,23
+C,0,deletion,AT,22
+C,0,insertion,A,67
+C,0,insertion,THE,33
+C,0,insertion,IN,31
+C,0,insertion,AN,25
+C,0,insertion,TO,25
+C,0,insertion,I,24
+C,0,insertion,AND,21
+C,0,insertion,OF,20
+C,0,insertion,O,16
+C,0,insertion,BE,14
+A,-5,substitution,THE -> A,83
+A,-5,substitution,OF -> A,51
+A,-5,substitution,AND -> IN,49
+A,-5,substitution,IN -> AND,41
+A,-5,substitution,AND -> AN,34
+A,-5,substitution,IN -> AN,25
+A,-5,substitution,AND -> A,24
+A,-5,substitution,THE -> AN,24
+A,-5,substitution,THE -> AND,23
+A,-5,substitution,OF -> O,21
+A,-5,deletion,THE,736
+A,-5,deletion,OF,410
+A,-5,deletion,AND,362
+A,-5,deletion,TO,324
+A,-5,deletion,A,241
+A,-5,deletion,IN,201
+A,-5,deletion,IT,136
+A,-5,deletion,HIS,115
+A,-5,deletion,FOR,109
+A,-5,deletion,WAS,107
+A,-5,insertion,A,85
+A,-5,insertion,AND,38
+A,-5,insertion,AN,27
+A,-5,insertion,THE,23
+A,-5,insertion,IN,21
+A,-5,insertion,AT,19
+A,-5,insertion,I,16
+A,-5,insertion,O,14
+A,-5,insertion,TO,14
+A,-5,insertion,IT,14
+B,-5,substitution,AND -> AN,78
+B,-5,substitution,THE -> TE,65
+B,-5,substitution,AND -> IN,55
+B,-5,substitution,THE -> A,49
+B,-5,substitution,IN -> AND,46
+B,-5,substitution,THE -> E,44
+B,-5,substitution,A -> THE,42
+B,-5,substitution,OF -> O,35
+B,-5,substitution,IN -> AN,32
+B,-5,substitution,OF -> A,32
+B,-5,deletion,THE,170
+B,-5,deletion,OF,127
+B,-5,deletion,AND,108
+B,-5,deletion,TO,89
+B,-5,deletion,A,81
+B,-5,deletion,IN,70
+B,-5,deletion,IT,66
+B,-5,deletion,IS,46
+B,-5,deletion,YOU,37
+B,-5,deletion,AT,32
+B,-5,insertion,A,78
+B,-5,insertion,THE,30
+B,-5,insertion,I,29
+B,-5,insertion,O,28
+B,-5,insertion,E,24
+B,-5,insertion,TO,22
+B,-5,insertion,IN,22
+B,-5,insertion,AND,20
+B,-5,insertion,TE,20
+B,-5,insertion,AN,19
+C,-5,substitution,AND -> AN,87
+C,-5,substitution,THE -> TE,81
+C,-5,substitution,THE -> A,58
+C,-5,substitution,AND -> IN,56
+C,-5,substitution,THE -> E,53
+C,-5,substitution,IN -> AND,49
+C,-5,substitution,IN -> AN,45
+C,-5,substitution,A -> THE,34
+C,-5,substitution,AND -> A,32
+C,-5,substitution,OF -> A,30
+C,-5,deletion,THE,144
+C,-5,deletion,OF,120
+C,-5,deletion,AND,103
+C,-5,deletion,A,83
+C,-5,deletion,TO,70
+C,-5,deletion,IT,64
+C,-5,deletion,IN,59
+C,-5,deletion,IS,44
+C,-5,deletion,YOU,37
+C,-5,deletion,HE,36
+C,-5,insertion,A,72
+C,-5,insertion,THE,36
+C,-5,insertion,AN,33
+C,-5,insertion,TO,27
+C,-5,insertion,IN,27
+C,-5,insertion,E,24
+C,-5,insertion,TE,19
+C,-5,insertion,AND,17
+C,-5,insertion,I,16
+C,-5,insertion,O,15
