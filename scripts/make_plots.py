@@ -4,13 +4,14 @@ Phase 17: figures and tables for the paper, from saved results only (no GPU, no 
 Run from the project root, after scripts/evaluate.py:
     python scripts/make_plots.py                 # test set figures (default)
     python scripts/make_plots.py --split dev     # same figures on the dev set
+    python scripts/make_plots.py --decoding lm   # results of scripts/decode_lm.py (beam search + 3-gram LM)
 
 Reads
     results/eval/<split>/predictions_<model>.csv   per utterance errors (evaluate.py)
     experiments/<model>/log.csv                    per epoch training logs
     experiments/stage8_*/log.csv                   pilot runs (SpecAugment strength ablation)
 
-Writes to results/plots/<split>/ (PNG for slides / README, PDF for the paper)
+Writes to results/plots/<split>/ (or <split>_lm/ with --decoding lm; PNG + PDF)
     fig1_wer_vs_snr        WER vs SNR, 3 models, 95% bootstrap CIs, SNRs outside the
                            0 to 20 dB training range shaded
     fig2_cer_vs_snr        the same for CER
@@ -18,9 +19,12 @@ Writes to results/plots/<split>/ (PNG for slides / README, PDF for the paper)
     fig4_c_minus_b         WER difference C - B per condition with 95% CI
     fig5_training_curves   dev mean WER and training loss per epoch (two panels, one axis each)
     fig6_pilot_ablation    pilot runs: no SpecAugment vs mild vs strong masking
+    fig9_greedy_vs_lm      (--decoding lm only) greedy vs LM WER per model; fig5 / fig6 are
+                           only made for greedy (they do not depend on decoding)
 and to results/eval/<split>/
     table_wer_ci.csv / .md          WER and CER per model x condition with 95% CIs
     table_differences.csv / .md     paired differences B-A, C-A, C-B with CIs
+    table_greedy_vs_lm.csv / .md    (--decoding lm) LM minus greedy per model x condition, with CIs
 
 Statistics
     Corpus level WER (total word errors / total reference words). 95% confidence
@@ -98,14 +102,20 @@ def snr_key(c):
     return 1e9 if c == "clean" else float(c)
 
 
+def folder(split, decoding):
+    return split + ("_lm" if decoding == "lm" else "")
+
+
 class Results:
-    def __init__(self, split):
-        self.split = split
+    def __init__(self, split, decoding="greedy"):
+        self.split, self.decoding = split, decoding
+        self.folder = folder(split, decoding)
         self.preds = {}
         for name, *_ in MODELS:
-            p = ROOT / "results" / "eval" / split / f"predictions_{name}.csv"
+            p = ROOT / "results" / "eval" / self.folder / f"predictions_{name}.csv"
             if not p.exists():
-                sys.exit(f"missing {p}: run scripts/evaluate.py --split {split} first")
+                tool = "decode_lm.py" if decoding == "lm" else "evaluate.py"
+                sys.exit(f"missing {p}: run scripts/{tool} --split {split} first")
             self.preds[name] = read_predictions(p)
         first = self.preds[MODELS[0][0]]
         self.conditions = sorted(first, key=snr_key)
@@ -116,7 +126,8 @@ class Results:
         # arrays [n_utts, 7] per model x condition
         self.arr = {(n, c): np.array([self.preds[n][c][u] for u in self.utts], dtype=np.int64)
                     for n in self.preds for c in self.conditions}
-        self.label = f"{split}-clean ({len(self.utts):,} utterances)"
+        self.label = (f"{split}-clean ({len(self.utts):,} utterances)"
+                      + (", 3-gram LM decoding" if decoding == "lm" else ""))
         rng = np.random.default_rng(SEED)
         self.boot = rng.integers(0, len(self.utts), size=(N_BOOT, len(self.utts)))
 
@@ -328,7 +339,7 @@ def fig_pilots(out):
 
 # ------------------------------------------------------------------ tables
 def tables(R, split):
-    out = ROOT / "results" / "eval" / split
+    out = ROOT / "results" / "eval" / R.folder
     rows = []
     for name, short, long, *_ in MODELS:
         for c in R.conditions:
@@ -361,12 +372,57 @@ def tables(R, split):
     write_table(out / "table_differences.csv", diffs)
 
 
+def fig_greedy_vs_lm(G, L, out):
+    """One panel per model: greedy (gray) vs LM decoding (model color), same test audio."""
+    conds = L.conditions
+    unseen = [c for c in conds if outside_training(c)]
+    fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.9), sharey=True)
+    for ax, (name, short, long, color, marker) in zip(axes, MODELS):
+        x = snr_axis(ax, conds, unseen)
+        ax.set_xlabel("")
+        ax.tick_params(axis="x", labelsize=8)
+        g = [G.wer(name, c)[0] for c in conds]
+        l_ = [L.wer(name, c)[0] for c in conds]
+        ax.plot(x, g, color=MUTED, marker=marker, markersize=5, markeredgecolor=SURFACE,
+                markeredgewidth=1.2, label="greedy")
+        ax.plot(x, l_, color=color, marker=marker, markersize=6, markeredgecolor=SURFACE,
+                markeredgewidth=1.2, label="beam search + 3-gram LM")
+        rel = np.mean([100 * (gg - ll) / gg for gg, ll, c in zip(g, l_, conds) if c in STANDARD])
+        ax.set_title(f"{long}  (LM: {rel:.0f}% fewer errors)", loc="left", fontsize=10)
+        ax.legend(loc="upper right", fontsize=8)
+    axes[0].set_ylabel("WER (%)")
+    axes[0].set_ylim(0, None)
+    fig.supxlabel("signal to noise ratio" + (" (shaded: below the 0 to 20 dB training range)"
+                                             if unseen else ""), fontsize=9, color=INK2)
+    fig.suptitle(f"Greedy vs language model decoding, {L.split}-clean ({len(L.utts):,} utterances)",
+                 x=0.01, ha="left", fontsize=11)
+    fig.tight_layout()
+    save(fig, out, "fig9_greedy_vs_lm")
+
+
+def table_greedy_vs_lm(G, L):
+    rows = []
+    for name, short, *_ in MODELS:
+        for c in L.conditions + ["mean"]:
+            cs = STANDARD if c == "mean" else [c]
+            g = np.mean([G.wer(name, cc)[0] for cc in cs])
+            l_ = np.mean([L.wer(name, cc)[0] for cc in cs])
+            ds = np.mean([L.wer(name, cc)[1] - G.wer(name, cc)[1] for cc in cs], axis=0)
+            lo, hi = ci(ds)
+            rows.append(dict(model=short, condition=c, greedy_wer=round(g, 2), lm_wer=round(l_, 2),
+                             diff_points=round(l_ - g, 2), ci95=f"[{lo:.2f}, {hi:.2f}]",
+                             relative_pct=round(100 * (l_ - g) / g, 1),
+                             significant=bool(hi < 0 or lo > 0)))
+    write_table(ROOT / "results" / "eval" / L.folder / "table_greedy_vs_lm.csv", rows)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("--split", default="test", choices=["dev", "test"])
+    ap.add_argument("--decoding", default="greedy", choices=["greedy", "lm"])
     args = ap.parse_args()
-    R = Results(args.split)
-    out = ROOT / "results" / "plots" / args.split
+    R = Results(args.split, args.decoding)
+    out = ROOT / "results" / "plots" / R.folder
     out.mkdir(parents=True, exist_ok=True)
     print(f"{args.split}: {len(R.utts)} utterances, conditions {R.conditions}, "
           f"{N_BOOT} paired bootstrap resamples")
@@ -375,10 +431,17 @@ def main():
     fig_rate_vs_snr(R, out, "CER", "fig2_cer_vs_snr")
     fig_error_types(R, out)
     fig_c_minus_b(R, out)
-    fig_training(out)
-    fig_pilots(out)
-    print(f"tables -> results/eval/{args.split}")
+    if args.decoding == "greedy":            # training curves / pilots do not depend on decoding
+        fig_training(out)
+        fig_pilots(out)
+    else:
+        G = Results(args.split, "greedy")         # same utterances and bootstrap resamples
+        assert G.utts == R.utts
+        fig_greedy_vs_lm(G, R, out)
+    print(f"tables -> results/eval/{R.folder}")
     tables(R, args.split)
+    if args.decoding == "lm":
+        table_greedy_vs_lm(G, R)
     print("done")
 
 
